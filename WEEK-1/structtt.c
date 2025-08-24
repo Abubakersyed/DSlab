@@ -1,31 +1,33 @@
+
 #include<stdio.h>
-int main()
-{
+struct Student {
 	int roll_no;
 	char name[50];
-	int marks[5], total=0;
-	int i;
-	
-	printf("Enter roll no : ");
-	scanf("%d",&roll_no);
-	
-	printf("Enter Name: ");
-	scanf("%s",&name);
+	int marks[5];
+	int total;
+};
 
-for(i = 0; i < 5; i++) {
-	printf("Enter marks for subject %d: ", i+1);
-	scanf("%d",&marks[i]);
-	total += marks[i];
-}
-printf("\n--- Student Details (Using Arrays) ---\n");
-printf("Roll Number: %d\n", roll_no);
-printf("Name: %s\n", name);
-printf("Marks: ");
-for(i = 0; i < 5; i++)
-{
-	printf("%d ", marks[i]);
-}
-printf("\nTotal: %d\n", total);
-getchar();
-return 0;
+int main() {
+	struct Student s;
+	s.total = 0;
+	int i=0;
+	printf("Enter Roll Number: ");
+	scanf("%d",&s.roll_no);
+	printf("Enter Name: ");
+	scanf("%s",&s.name);
+	
+	for(i=0;i<5;i++) {
+		printf("Enter marks for subject %d: ", i+1);
+		scanf("%d",&s.marks[i]);
+		s.total += s.marks[i];
+	}
+	printf("\n--- Students Details (Using Structure) ---\n");
+	printf("Roll Number: %d\n",s.roll_no);
+	printf("Name: %s\n",s.name);
+	printf("Marks: ");
+	for(i=0;i<5;i++){
+		printf("%d ",s.marks[i]);
+	}
+	printf("\nTotal: %d\n",s.total);
+	return 0;
 }
