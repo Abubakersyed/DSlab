@@ -57,7 +57,7 @@ struct Node* rightRotate(struct Node*y)
 }
 // func to perform a left rotation 
 struct Node* leftRotate(struct Node*x)
-{
+{ 
 	struct Node* y=x->right;
 	struct Node* T2 = y->left;
 	
@@ -84,5 +84,58 @@ else if(key>node->key)
  node->right = insert(node->right,key);
  else
  return node;// duplicate keys not allowed 
+//update height of this ancestor node
+ node->height = 1+max(getHeight(node->left),getHeight(node->rgiht));
+	int balance = getBalanceFactor(node);
+
+	// lef left case
+	if(balance>1&&key<node->left->key)
+		return rightRotate(node);
+	// Right Right Case
+if (balance < -1 && key > node->right->key)
+return leftRotate(node);
+	//left Right case
+	if(balance > 1 && key > node-> left->key)
+	{
+		node->left=leftRotate(node->left);
+		return rightRotate(node);
+	}
+
+	// Right Left Case
+if (balance < -1 && key < node->right->key)
+{
+node->right = rightRotate(node->right);
+return leftRotate(node);
+}
+// Return the unchanged node pointer
+return node;
 	
 }
+// Function for inorder traversal (Left, Root, Right)
+void inOrder(struct Node* root)
+{
+if (root != NULL)
+{
+inOrder(root->left);
+printf("%d ", root->key);
+inOrder(root->right);
+
+}
+}
+// Main function to test AVL Tree operations
+int main()
+{
+struct Node* root = NULL;
+// Insert nodes into the AVL tree
+root = insert(root, 1);
+root = insert(root, 2);
+root = insert(root, 4);
+root = insert(root, 5);
+root = insert(root, 6);
+root = insert(root, 3);
+// Display the inorder traversal
+printf("Inorder traversal of AVL tree: ");
+inOrder(root);
+return 0;
+}
+
